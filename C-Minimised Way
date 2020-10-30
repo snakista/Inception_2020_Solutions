@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+#define fast ios_base::sync_with_stdio(false); cin.tie(0)
+#define ll long long int
+using namespace std;
+#define mod 1000000007
+const int INF=1e9;
+int main()
+{
+	fast;
+	ll t;
+	cin>>t;
+	while(t--)
+	{
+		ll n;
+		cin>>n;
+		if(n==1)
+		{
+			cout<<0<<endl;
+			continue;
+		}
+		ll arr[n+1];
+		ll val[n+1];
+		ll dp[n+1];
+		dp[0]=0;
+		for(ll i=1;i<=n;i++)
+		dp[i]=INT_MAX;
+		for(ll i=1;i<=n;i++)
+		cin>>arr[i];
+		for(ll i=1;i<=n;i++)
+		cin>>val[i];
+		dp[1]=val[1];
+		for(ll i=1;i<n;i++)
+		{
+			ll l=-1,s=-1;
+			for(ll j=i+1;j<=n;j++)
+			{
+				if(arr[j]>=arr[i])
+				{
+					l=j;
+					break;
+				}
+			}
+			for(ll j=i+1;j<=n;j++)
+			{
+				if(arr[j]<arr[i])
+				{
+					s=j;
+					break;
+				}
+			}
+			if(l!=-1)
+			dp[l]=min(dp[i]+val[l],dp[l]);
+			if(s!=-1)
+			dp[s]=min(dp[i]+val[s],dp[s]);
+		}
+		cout<<dp[n]<<'\n';
+	}
+}
